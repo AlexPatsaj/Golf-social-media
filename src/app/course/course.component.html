@@ -1,0 +1,611 @@
+<section class="desktop-version">
+    <div class="container-fluid" id="vimeoapi">
+        <div class="row">
+            <!-- Player-->
+            <div class="col-xl-9 col-lg-12 col-md-12 player p-r-l-0px ">
+
+
+                <div class="resp-container" *ngIf="urlVideo">
+                    <iframe #video_iframe_element [src]="urlVideo" frameborder="0" allowfullscreen class="resp-iframe"></iframe>
+                </div>
+                <!-- Playlist form-->
+                <div class="row datafrms">
+                    <!--Mobile Tabs-->
+                    <div class="col-12">
+                        <div class="tabs mobile-forms">
+                            <ul class="nav nav-tabs">
+                                <li>
+                                    <a class="active show" data-toggle="tab" href="#questions">MODULES</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#send">REVIEW</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#addplaylist">GLOSSARY</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Mobile Tabs-->
+                    <!-- Post Question-->
+                    <div class="col-xl-4 col-lg-12 col-md-12 tab show active" id="questions">
+                        <div class="metaforms">
+                            <form novalidate [formGroup]="addReview">
+                                <ngx-loading [show]="loadingByQuestion" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                    secondaryColour: '#007bff', tertiaryColour: '#007bff'}"></ngx-loading>
+
+                                <div class="white-wrap">
+                                    <div class="form-group">
+                                        <input class="form-control" formControlName="title" type="text" placeholder="Question Title...">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" formControlName="description" id="exampleFormControlTextarea1" rows="4" placeholder="Write your question here..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" [disabled]="addReview.invalid" class="btn btn-primary" (click)="postReview()" value="POST QUESTION"
+                                    />
+                                    <span class="tag">* All questions will be tagged and inputed into the Academy For</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End Post Question-->
+                    <!-- Send Message -->
+                    <div class="col-xl-4 col-lg-12 col-md-12 tab" id="send">
+                        <div class="metaforms">
+                            <form novalidate  [formGroup]="createconversationfromcourse" >
+                                    <ngx-loading [show]="loadingMessage" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                    secondaryColour: '#007bff', tertiaryColour: '#007bff'}"></ngx-loading>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" [class.is-invalid]="searchFailed"   formControlName="name" [ngbTypeahead]="search"
+                                        placeholder="Enter friends name..." [resultTemplate]="rt" [inputFormatter]="formatter"
+                                    />
+                                    <ng-template #rt let-r="result" let-t="term">
+                                        {{ r.name}}
+                                    </ng-template>
+                                </div> 
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" formControlName="message"  placeholder="Write your message here..."></textarea>
+                                    <!-- <div id="textarea" class="form-control"   [innerHtml] ="message | safeHtml" contentEditable=true  data-text="Write your message here..."></div> -->
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" [disabled]="createconversationfromcourse.invalid" class="btn btn-primary" (click)="AddConversationFromCourse()"
+                                        value="SEND MESSAGE" />
+                                    <span class="tag"> * Want a personal George Gankas Certified coach to message? UP</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End Send Message-->
+                    <!-- Add to playlist-->
+                    <div class="col-xl-4 col-lg-12 col-md-12 tab" id="addplaylist">
+
+                        <div class="metaforms addplaylist">
+                            <div *ngFor="let list of playLists1">
+                                <div class="form-group" [ngClass]="{'lock': urlVideo}" *ngIf="list && list.name">
+                                    <ngx-loading *ngIf="checkByPlayListId(list.id)" [show]="loadingByPlayListId" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                            secondaryColour: '#007bff', 
+                                            tertiaryColour: '#007bff'}"></ngx-loading>
+                                    <input class="form-control" type="text" readonly placeholder="" value='{{list.name}}'>
+                                    <i class="fas fa-bars"></i>
+                                    <i (click)="addtoplaylistBylist(list)" *ngIf="urlVideo" class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                            <form novalidate [formGroup]="addToPlayListForm">
+
+                                <div class="form-group">
+                                    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                            secondaryColour: '#007bff', 
+                                            tertiaryColour: '#007bff'}"></ngx-loading>
+                                    <input class="form-control" type="text" formControlName="PlaylistName" value="Name of Playlist">
+                                    <i class="fas fa-bars"></i>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" [disabled]="addToPlayListForm.invalid" (click)="addToPlaylist()" value="ADD TO PLAYLIST"
+                                    />
+                                </div>
+                            </form>
+
+                            <div class="nav">
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-angle-up" (click)="onPrevious()"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-angle-down" (click)="onNext()"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post Question-->
+                    <div class="close">
+                        <i class="fa fa-times"></i> Close
+                    </div>
+                </div>
+                <!-- End  Playlist form-->
+            </div>
+            <!--End Player-->
+            <!--Album Options-->
+            <div class="col-xl-3 col-lg-12 col-md-12 playlist">
+                <div id="album">
+                    <div class="head content">
+                        <div class="page-title">
+                            <div class="row">
+                                <div class="col-9" style="width: 60% !important;">
+                                    <h6 class="hide-block">
+                                        <span class="color-g" *ngIf="details && details.id && details.name">Course {{details.id}}</span>
+                                    </h6>
+                                    <h5 class="hide-block">
+                                        <span class="color-black" *ngIf="details && details.name"> {{details.name}}</span>
+                                    </h5>
+                                    <div class="show-block-Mobile">
+                                        <a style="width: 20%">
+                                            <i class="fa fa-angle-left  Back" routerLink="/course/academy"></i>
+                                        </a>
+                                        <h6 class="mobile-title">
+                                            <span *ngIf="details && details.name"> {{details.name}}</span>
+                                        </h6>
+                                    </div>
+
+                                </div>
+                                <div class="col-3" style="width: 40% !important;">
+
+                                    <div class="c100 small pieCHart" [ngClass]="process ? 'p'+process : ''">
+                                        <span>{{process}}%</span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tabs">
+                            <div class="content bColor p-l-r-10">
+                                <ul class="nav nav-tabs">
+                                    <li>
+                                        <a class="active show" data-toggle="tab" href="#MODULES">MODULES</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#REVIEW">REVIEW</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#GLOSSARY">GLOSSARY</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+
+                                <div id="MODULES" class="tab-pane fade in active show">
+                                    <div *ngIf="details && details.modules">
+                                        <div class="module module1" *ngFor="let moduleData of details.modules">
+                                            <div class="title">
+                                                <div class="content  display-inlineflex">
+                                                    <i class="fa fa-check color-blue " *ngIf="completedChapter(moduleData)"></i>
+                                                    <h6 class="m-l-10">
+                                                        <span *ngIf="moduleData && moduleData.name"></span>
+                                                        {{moduleData.name |uppercase }}
+                                                    </h6>
+                                                    <h6 class="m-r-10 float-r">{{countColmpletedChapter(moduleData)+'/'+moduleData.chapters.length}}</h6>
+                                                </div>
+                                            </div>
+                                            <div class="elements">
+                                                <hr [ngStyle]="{'height': (40*(moduleData.chapters.length-1))+'px'}">
+                                                <ul>
+                                                    <li class="border-left-hover" *ngFor="let chapterData of moduleData.chapters;let i=index" (click)="loadVimeoVideo(chapterData)">
+
+                                                        {{chapterData.name}}
+                                                        <input type="checkbox" name="checked" [(ngModel)]="chapterData.is_mark" (click)="updateChapterForCourses(chapterData)" />
+                                                        <i class="fas  checked"></i>
+                                                        <i class="fas fa-plus"></i>
+                                                        <ngx-loading *ngIf="checkByChapterId(chapterData.id)" [show]="loading_tab_content" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                                                secondaryColour: '#007bff', 
+                                                                tertiaryColour: '#007bff'}"></ngx-loading>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End Module -->
+                                <!-- Reviews-->
+                                <div id="REVIEW" class="tab-pane fade in">
+                                    <!--Review Item 01-->
+                                    <div class="module reviews" *ngFor="let item of ReviewListDetails">
+                                        <div class="title">
+                                            <div class="content">
+                                                <h6 class="m-l-10">{{item.title}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <p class="backW p-25-30">{{item.description}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- End Reviews-->
+                                <!-- GLOSSARY -->
+                                <div id="GLOSSARY" class="tab-pane fade in">
+                                    <!--GLOSSARY 1-->
+                                    <div class="module GLOSSARY" *ngFor="let item of GlossarryListDetails;let h=index">
+                                        <div class="title">
+                                            <div class="content">
+                                                <h6 class="m-l-20">{{item.module_name}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="content backW" *ngFor="let chapter of item.chapters;let i =index">
+                                            <div class="chapter-name">
+                                                <div class="m-l-20">{{chapter.chapter_name}}</div>
+                                            </div>
+                                            <div id="accordion" class="p-20">
+                                                <!-- Glossary Item 1-->
+
+                                                <div class="item 1" *ngFor="let item of chapter.glosarry;let j=index">
+                                                    <a class="expand" data-toggle="collapse" attr.data-target='{{"#item"+i+h+j}}' aria-controls="collapseOne">{{item.glossary_title}}
+                                                        <i class="fas fa-angle-right"></i>
+                                                    </a>
+                                                    <div id='{{"item"+i+h+j}}' class="collapse" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <div></div>
+                                                            <br>
+                                                            <p class="backW">
+                                                                {{item.glossary_description }}
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- End GLOSSARY-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Album Options-->
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mobile-version">
+
+    <div class="container-fluid" id="vimeoapi">
+        <div class="row">
+            <!-- Player-->
+
+            <div class="col-xl-9 col-lg-12 col-md-12 player p-r-l-0px " *ngIf="isChapterOpened">
+                <div id="album">
+                    <div class="page-title">
+                        <div class="row">
+                            <div class="col-9" style="width: 60% !important;">
+                                <h6 class="hide-block">
+                                    <span class="color-g" *ngIf="details && details.id && details.name">Course {{details.id}}</span>
+                                </h6>
+                                <h5 class="hide-block">
+                                    <span class="color-black" *ngIf="details && details.name"> {{details.name}}</span>
+                                </h5>
+                                <div class="show-block-Mobile">
+                                    <a style="width: 20%">
+                                        <i class="fa fa-angle-left  Back" (click)="backButton()"></i>
+                                    </a>
+                                    <h6 class="mobile-title">
+                                        <span *ngIf="details && details.name"> {{details.name}}</span>
+                                    </h6>
+                                </div>
+
+                            </div>
+                            <div class="col-3" style="width: 40% !important;">
+
+                                <div class="c100 small pieCHart" [ngClass]="process ? 'p'+process : ''">
+                                    <span>{{process}}%</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="resp-container" *ngIf="urlVideo">
+                        <iframe #video_iframe_element [src]="urlVideo" frameborder="0" allowfullscreen class="resp-iframe"></iframe>
+                    </div>
+                    <div class="col-12 position-r">
+                        <div class="block-next-prev-video">
+                            <div class="float-l" (click)="prevChapter()">
+                                <i *ngIf="allChapters.length>1" class="fas fa-fast-backward"></i>
+
+                            </div>
+                            <div class="block-title-video">{{openedChapter.name}} </div>
+                            <div class="float-r" (click)="nextChapter()">
+                                <i *ngIf="allChapters.length>1" class="fas fa-fast-forward "></i>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Playlist form-->
+                    <div class="row datafrms">
+                        <!--Mobile Tabs-->
+                        <div class="col-12">
+                            <div class="tabs mobile-forms">
+                                <ul class="nav nav-tabs">
+                                    <li>
+                                        <a class="active show" data-toggle="tab" href="#QUESTIONS">QUESTION</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#SEND">MESSAGE</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#ADDPLAYLIST">PLAYLIST</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Mobile Tabs-->
+                        <!-- Post Question-->
+
+                        <div class="col-xl-4 col-lg-12 col-md-12 tab show active" id="QUESTIONS">
+                            <div class="metaforms">
+                                <form novalidate [formGroup]="addReview">
+                                    <ngx-loading [show]="loadingByQuestion" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                    secondaryColour: '#007bff', tertiaryColour: '#007bff'}"></ngx-loading>
+
+                                    <div class="white-wrap">
+                                        <div class="form-group">
+                                            <input class="form-control" formControlName="title" type="text" placeholder="Question Title...">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" formControlName="description" id="exampleFormControlTextarea1" rows="4" placeholder="Write your question here..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" [disabled]="addReview.invalid" class="btn btn-primary" (click)="postReview()" value="POST QUESTION"
+                                        />
+                                        <span class="tag">* All questions will be tagged and inputed into the Academy For</span>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End Post Question-->
+                        <!-- Send Message -->
+                        <div class="col-xl-4 col-lg-12 col-md-12 tab" id="SEND">
+                            <div class="metaforms">
+                                <form novalidate [formGroup]="createconversationfromcourse">
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" [class.is-invalid]="searchFailed" formControlName="name" [ngbTypeahead]="search"
+                                            placeholder="Enter friends name..." [resultTemplate]="rt" [inputFormatter]="formatter"
+                                        />
+                                        <ng-template #rt let-r="result" let-t="term">
+                                            {{ r.name}}
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" formControlName="message" placeholder="Write your message here..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" [disabled]="createconversationfromcourse.invalid" class="btn btn-primary" (click)="AddConversationFromCourse()"
+                                            value="SEND MESSAGE" />
+                                        <span class="tag"> * Want a personal George Gankas Certified coach to message? UP</span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End Send Message-->
+                        <!-- Add to playlist-->
+                        <div class="col-xl-4 col-lg-12 col-md-12 tab" id="ADDPLAYLIST">
+
+                            <div class="metaforms addplaylist">
+                                <div *ngFor="let list of playLists1">
+                                    <div class="form-group" [ngClass]="{'lock': urlVideo}" *ngIf="list && list.name">
+                                        <ngx-loading *ngIf="checkByPlayListId(list.id)" [show]="loadingByPlayListId" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                            secondaryColour: '#007bff', 
+                                            tertiaryColour: '#007bff'}"></ngx-loading>
+                                        <input class="form-control" type="text" readonly placeholder="" value='{{list.name}}'>
+                                        <i class="fas fa-bars"></i>
+                                        <i (click)="addtoplaylistBylist(list)" *ngIf="urlVideo" class="fas fa-plus"></i>
+                                    </div>
+                                </div>
+                                <form novalidate [formGroup]="addToPlayListForm">
+
+                                    <div class="form-group">
+                                        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                            secondaryColour: '#007bff', 
+                                            tertiaryColour: '#007bff'}"></ngx-loading>
+                                        <input class="form-control" type="text" formControlName="PlaylistName" value="Name of Playlist">
+                                        <i class="fas fa-bars"></i>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" [disabled]="addToPlayListForm.invalid" (click)="addToPlaylist()" value="ADD TO PLAYLIST"
+                                        />
+                                    </div>
+                                </form>
+
+                                <div class="nav">
+                                    <ul>
+                                        <li>
+                                            <i class="fas fa-angle-up" (click)="onPrevious()"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-angle-down" (click)="onNext()"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post Question-->
+                        <!-- <div class="close">
+                            <i class="fa fa-times"></i> Close
+                        </div> -->
+                    </div>
+                    <!-- End  Playlist form-->
+                </div>
+
+            </div>
+            <!--End Player-->
+            <!--Album Options-->
+            <div class="col-xl-3 col-lg-12 col-md-12 playlist" *ngIf="!isChapterOpened">
+                <div id="album">
+                    <div class="head content">
+                        <div class="page-title">
+                            <div class="row">
+                                <div class="col-9" style="width: 60% !important;">
+                                    <h6 class="hide-block">
+                                        <span class="color-g" *ngIf="details && details.id && details.name">Course {{details.id}}</span>
+                                    </h6>
+                                    <h5 class="hide-block">
+                                        <span class="color-black" *ngIf="details && details.name"> {{details.name}}</span>
+                                    </h5>
+                                    <div class="show-block-Mobile">
+                                        <a style="width: 20%">
+                                            <i class="fa fa-angle-left  Back" (click)="backButton()"></i>
+                                        </a>
+                                        <h6 class="mobile-title">
+                                            <span *ngIf="details && details.name"> {{details.name}}</span>
+                                        </h6>
+                                    </div>
+
+                                </div>
+                                <div class="col-3" style="width: 40% !important;">
+
+                                    <div class="c100 small pieCHart" [ngClass]="process ? 'p'+process : ''">
+                                        <span>{{process}}%</span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tabs">
+                            <div class="content bColor p-l-r-10">
+                                <ul class="nav nav-tabs">
+                                    <li>
+                                        <a class="active show" data-toggle="tab" href="#MODULES1">MODULES</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#REVIEW1">REVIEW</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#GLOSSARY1">GLOSSARY</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+
+                                <div id="MODULES1" class="tab-pane fade in active show">
+                                    <div *ngIf="details && details.modules">
+                                        <div class="module module1" *ngFor="let moduleData of details.modules">
+                                            <div class="title">
+                                                <div class="content  display-inlineflex">
+                                                    <i class="fa fa-check color-blue " *ngIf="completedChapter(moduleData)"></i>
+                                                    <h6 class="m-l-10">
+                                                        <span *ngIf="moduleData && moduleData.name"></span>
+                                                        {{moduleData.name |uppercase }}
+                                                    </h6>
+                                                    <h6 class="m-r-10 float-r">{{countColmpletedChapter(moduleData)+'/'+moduleData.chapters.length}}</h6>
+                                                </div>
+                                            </div>
+                                            <div class="elements">
+                                                <hr [ngStyle]="{'height': (40*(moduleData.chapters.length-1))+'px'}">
+                                                <ul>
+                                                    <li class="border-left-hover" *ngFor="let chapterData of moduleData.chapters;let i=index">
+                                                        <div (click)="loadVimeoVideo(chapterData)">
+                                                            {{chapterData.name}}
+                                                        </div>
+                                                        <input type="checkbox" name="checked" [(ngModel)]="chapterData.is_mark" (click)="updateChapterForCourses(chapterData)" />
+                                                        <i class="fas  checked" style="bottom:10px"></i>
+                                                        <i class="fas fa-plus"></i>
+                                                        <ngx-loading *ngIf="checkByChapterId(chapterData.id)" [show]="loading_tab_content" [config]="{ backdropBorderRadius: '14px',backdropBackgroundColour:'transparent' ,primaryColour: '#007bff', 
+                                                            secondaryColour: '#007bff', 
+                                                            tertiaryColour: '#007bff'}"></ngx-loading>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End Module -->
+                                <!-- Reviews-->
+                                <div id="REVIEW1" class="tab-pane fade in">
+                                    <!--Review Item 01-->
+                                    <div class="module reviews" *ngFor="let item of ReviewListDetails">
+                                        <div class="title">
+                                            <div class="content">
+                                                <h6 class="m-l-10">{{item.title}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <p class="backW p-25-30">{{item.description}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- End Reviews-->
+                                <!-- GLOSSARY -->
+                                <div id="GLOSSARY1" class="tab-pane fade in">
+                                    <!--GLOSSARY 1-->
+                                    <div class="module GLOSSARY" *ngFor="let item of GlossarryListDetails;let h=index">
+                                        <div class="title">
+                                            <div class="content">
+                                                <h6 class="m-l-20">{{item.module_name}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="content backW">
+                                            <div id="accordion" class="p-20" *ngFor="let chapter of item.chapters;let i =index">
+                                                <!-- Glossary Item 1-->
+                                                <div class="item 1">
+                                                    <a class="expand" data-toggle="collapse" attr.data-target='{{"#item"+i+h}}' aria-controls="collapseOne">{{chapter.chapter_name}}
+                                                        <i class="fas fa-angle-right"></i>
+                                                    </a>
+                                                    <div id='{{"item"+i+h}}' class="collapse" data-parent="#accordion">
+                                                        <div class="card-body" *ngFor="let item of chapter.glosarry">
+                                                            <div>{{item.glossary_title}}</div>
+                                                            <br>
+                                                            <p class="backW">
+                                                                {{item.glossary_description }}
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- End GLOSSARY-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Album Options-->
+            </div>
+        </div>
+    </div>
+</section>

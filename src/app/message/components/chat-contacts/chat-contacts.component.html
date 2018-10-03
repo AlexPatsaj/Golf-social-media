@@ -1,0 +1,116 @@
+<div class="chat-contacts-search-wrapper">
+    <!-- <div class="chat-contacts-search-wrapper" (click)="showInput=!showInput"> -->
+    <!-- <i class="ficon ft-search"></i>
+    <input type="search" class="search" placeholder="search user..." (keydown.enter)="onEnter($event)" [(ngModel)]="searchUser"> -->
+    <div class="new-message">
+        <i class="fas fa-plus"></i> New Message
+    </div>
+
+</div>
+<!-- <div *ngIf="showInput"> -->
+
+<!-- <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="newContact" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter" /> -->
+<!-- <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" [(ngModel)]="newContact" [ngbTypeahead]="search"
+    placeholder="search..." [resultTemplate]="rt" [inputFormatter]="formatter" /> -->
+
+
+<!-- <ng-template #rt let-r="result" let-t="term">
+    {{ r.first_name}} {{ r.last_name}}
+</ng-template> -->
+<!-- </div> -->
+<input type="text" class="form-control" [(ngModel)]="searchContact" (keyup)="onSearch(searchContact)" (keydown.enter)="onSearch(searchContact)" placeholder="search..."
+/>
+
+<div class="chat-contacts-list" id="style-1">
+    <!-- <div *ngIf="showNewContact()">
+        <div [ngClass]="{'black-highlight':false}" class="chat-contacts-list-item" (click)="openChat(contactTmp)">
+            <div class="contacts-list-name">
+                <span class="contact-name">
+                    <i class="fa fa-check" style="color:#2c96ea;"></i>Jaafar Abouchabaka</span>
+                <span class="badge badge-info unread-count">1</span>
+            </div>
+            <div class="contacts-list-info">
+                <div class="contacts-list-info-img">
+                    <span class="avatar avatar-online">  -->
+    <!-- <img alt="avatar" [src]="contact.image ? avatarUrl + contact.image : '/assets/learning/images/portrait/small/avatar-s-19.png'"> -->
+    <!-- <img alt="avatar" [src]="'/assets/images/admin/default.png'">
+                        <i></i>
+                    </span>
+                    <span class="online">
+                        &nbsp;
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+    </div> -->
+    <div *ngFor="let chat of messagesSummary1">
+        <!-- <div [class.active]="chat.id == selectedContactId" [ngClass]="{'black-highlight':chat.id===idTheFirstCase}" class="chat-contacts-list-item" -->
+        <div class="chat-contacts-list-item" (click)="createConversation(chat)" [ngClass]="{'black-highlight':chat.type===2}">
+            <div class="contacts-list-name">
+                <span class="contact-name">
+                    {{chat.name}}
+                </span>
+            </div>
+            <div class="contacts-list-info">
+                <div class="contacts-list-info-img">
+                    <span class="avatar avatar-online">
+                        <!-- <img alt="avatar" [src]="contact.image ? avatarUrl + contact.image : '/assets/learning/images/portrait/small/avatar-s-19.png'"> -->
+                        <img alt="avatar" [src]="'/assets/images/admin/default.png'">
+                        <i></i>
+                    </span>
+                    <span class="online">
+                        &nbsp;
+                    </span>
+                </div>
+                <div class="contacts-list-info-content">
+                    {{chat.name}}
+                </div>
+            </div>
+            <div class="constacts-list-footer">
+                <span class="status">
+                    {{1> 0 ? 'Undread':'Read'}}
+                </span>
+                <span class="time">
+                    <!-- {{contact.diff_time | date: 'short'}} -->
+                </span>
+            </div>
+        </div>
+
+        <!-- <div [class.active]="chat.id == selectedContactId" [ngClass]="{'black-highlight':chat.id===idTheFirstCase}" class="chat-contacts-list-item"
+            (click)="openChat(chat)">
+            <div class="contacts-list-name">
+                <span class="contact-name">
+                    <i *ngIf="chat.id===idTheFirstCase" class="fa fa-check" style="color:#2c96ea;"></i> {{(chat.sender.id===currentUser.id ? chat.receiver.first_name : chat.sender.first_name )}} {{(chat.sender.id===currentUser.id
+                    ? chat.receiver.last_name : chat.sender.last_name )}}</span>
+                <span *ngIf="chat.read > 0" class="badge badge-info unread-count">{{chat.read}}</span>
+            </div>
+            <div class="contacts-list-info">
+                <div class="contacts-list-info-img">
+                    <span class="avatar avatar-online"> -->
+        <!-- <img alt="avatar" [src]="contact.image ? avatarUrl + contact.image : '/assets/learning/images/portrait/small/avatar-s-19.png'"> -->
+        <!-- <img alt="avatar" [src]="'/assets/images/admin/default.png'">
+                        <i></i>
+                    </span>
+                    <span class="online">
+                        &nbsp;
+                    </span>
+                </div>
+                <div class="contacts-list-info-content">
+                    {{getPartialMsg(chat.message)}}
+                </div>
+            </div>
+            <div class="constacts-list-footer">
+                <span class="status">
+                    {{chat.read > 0 ? 'Undread':'Read'}}
+                </span>
+                <span class="time">
+                    {{getDisplayDate(chat.updated_at)}} -->
+        <!-- {{contact.diff_time | date: 'short'}} -->
+        <!-- </span>
+            </div>
+        </div> -->
+    </div>
+
+</div>

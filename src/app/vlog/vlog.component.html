@@ -1,0 +1,159 @@
+<!--Page Content-->
+<section>
+  <div class="page-header bg-slider bg">
+    <div id="slider" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Slider 1-->
+        <div class="carousel-item" style="background: url('assets/images/blog-banner.png')"
+        
+        *ngFor="let one of vlogs"
+        [class.active]="one.id == num">
+          <div class="container-fluid">
+            <div class="header_wrapper">
+              <!-- Header Text-->
+              <div class="header_text">
+                <h5>FEATURED</h5>
+                <h2>{{one.title}}</h2>
+                <p>{{one.content}}</p>
+              </div>
+              <!-- End Header Text-->
+              <!-- Vide Player-->
+              <div class="header_player">
+                <div class="img-full">
+                  <div class="video-topic">
+                    <div class="vlog-name">{{one.name}}</div>
+                    <div class= "simbol">
+                      <div style="margin-right: 20px;">
+                        <div>
+                          <i class="fas fa-heart"
+                          (click)="setFavour(one.id)"
+                          [class.like]="one.like"></i>
+                        </div>
+                        <div class="letter">favourit</div>
+                      </div>
+                      <div>
+                        <div>
+                          <i class="fas fa-eye"
+                          (click)="setViewed(one.id)"
+                          [class.viewed]="one.viewed"
+                          ></i>
+                        </div>
+                        <div class="letter">unviewed</div>
+                      </div>
+                    </div>
+                  </div>
+                  <video controls preload="none" class="video" poster={{one.postUrl}}>
+                    <source src={{one.sourceUrl1}}/>
+                    <source src={{one.sourceUrl2}}/>
+                    <track 
+                    *ngFor="let track of one.tracks"
+                    src={{track.url}} label={{track.label}}
+                           kind={{track.kind}} srclang={{track.srclang}} default/>
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- sidler end -->
+      <div id="controller">
+        <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+          <i class="fa fa-angle-left"></i>
+        </a>
+        <ol class="carousel-indicators">
+          <!-- <li data-target="#slider" data-slide-to="0" class="active"></li>
+          <li data-target="#slider" data-slide-to="1"></li>
+          <li data-target="#slider" data-slide-to="2"></li> -->
+          <li data-target="#slider" 
+          *ngFor="let one of vlogs"
+          [attr.data-slide-to] = "'one.id'"
+          ></li>
+        </ol>
+        <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+          <i class="fa fa-angle-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+<!-- End Page Content-->
+
+
+<section>
+  <div class="custom-vlog_container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" class="navbar-logo-letter">VLOGS:</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">All Videos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Full Swing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Short Game</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Equipment</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="row">
+      <div class="col-sm-12  col-xl-4 col-lg-4 col-md-4"
+      *ngFor="let vlog of vlogs">
+        <div class="single_video_details_vlog">
+          <div class="video_container">
+              <div class="img-full_content">
+                  <div class="video-topic">
+                    <div class="vlog-name">{{vlog.name}}</div>
+                    <div class= "simbol">
+                      <div style="margin-right: 20px;">
+                        <div>
+                          <i class="fas fa-heart"
+                          (click)="setFavour(vlog.id)"
+                          [class.like]="vlog.like"
+                          ></i>
+                        </div>
+                        <div class="letter">favourit</div>
+                      </div>
+                      <div>
+                        <div>
+                          <i class="fas fa-eye"
+                          (click)="setViewed(vlog.id)"
+                          [class.viewed]="vlog.viewed"
+                          ></i>
+                        </div>
+                        <div class="letter">unviewed</div>
+                      </div>
+                    </div>
+                  </div>
+                  <video controls preload="none" class="video_content" poster={{vlog.postUrl}}>
+                    <source src={{vlog.sourceUrl1}}/>
+                    <source src={{vlog.sourceUrl2}}/>
+                    <track 
+                    *ngFor="let track of vlog.tracks" 
+                    src={{track.url}} label={{track.label}} kind={{track.kind}} srclang={{track.srclang}} default/>
+                  </video>
+                </div>
+          </div>
+          <div class="video-remaining-info">
+            <h3>{{vlog.title}}</h3>
+            <p>
+             {{vlog.content}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</section>

@@ -1,0 +1,72 @@
+<div class="d-flex flex-column frequently-asked">
+    <div class="p-0 title">
+        <h2>FREQUENTLY ASKED...</h2>
+    </div>
+    <div class="p-0 d-flex flex-wrap questions flex-sm-row">
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed"   (click)="isQuestion1 = !isQuestion1">
+                IS THIS MEMBERSHIP ONLY FOR LOW HANDICAPS?
+                <i *ngIf="isQuestion1"  class="fa fa-plus"  ></i>
+                <i *ngIf="!isQuestion1"  class="fa fa-minus"  ></i>
+            </a>
+            <div [ngbCollapse]="isQuestion1" id="question1">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed"  (click)="isQuestion2 = !isQuestion2" >
+                IS THIS THE SAME CONTENT AS THE LAST SITE?
+                <i *ngIf="isQuestion2"  class="fa fa-plus" aria-hidden="true"></i>
+                <i *ngIf="!isQuestion2"  class="fa fa-minus" aria-hidden="false"></i>
+
+            </a>
+            <div [ngbCollapse]="isQuestion2"  id="question2">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed"  (click)="isQuestion3 = !isQuestion3" >
+                IS THERE GOING TO CONTINUOUS NEW CONTENT?
+                <i *ngIf="isQuestion3"  class="fa fa-plus" aria-hidden="true"></i>
+                <i *ngIf="!isQuestion3"  class="fa fa-minus" aria-hidden="false"></i>
+
+            </a>
+            <div [ngbCollapse]="isQuestion3" id="question3">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed" (click)="isQuestion4 = !isQuestion4" >
+                IS THIS PLATFORM OWNED BY GEORGE?
+                <i *ngIf="isQuestion4"  class="fa fa-plus" aria-hidden="true"></i>
+                <i *ngIf="!isQuestion4"  class="fa fa-minus" aria-hidden="false"></i>
+
+            </a>
+            <div [ngbCollapse]="isQuestion4"  id="question4">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed" (click)="isQuestion5 = !isQuestion5">
+                CAN I CANCEL OR FREEZE MY MEMBERSHIP?
+                <i *ngIf="isQuestion5"  class="fa fa-plus" aria-hidden="true"></i>
+                <i *ngIf="!isQuestion5"  class="fa fa-minus" aria-hidden="false"></i>
+
+            </a>
+            <div [ngbCollapse]="isQuestion5" id="question5">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+        <div class="p-2 d-flex flex-column">
+            <a class="collapsed" (click)="isQuestion6 = !isQuestion6" >
+                WHAT IF I WAS A MEMBER TO THE OLD SITE?
+                <i *ngIf="isQuestion6"  class="fa fa-plus" aria-hidden="true"></i>
+                <i *ngIf="!isQuestion6"  class="fa fa-minus" aria-hidden="false"></i>
+
+            </a>
+            <div [ngbCollapse]="isQuestion6" id="question6">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+    </div>
+</div>

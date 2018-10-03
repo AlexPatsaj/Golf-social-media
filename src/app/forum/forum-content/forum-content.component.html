@@ -1,0 +1,104 @@
+<div class="col-lg-12 col-md-12 desktop-version">
+  <div class="content">
+    <div class="row inline">
+      <!-- Form 1-->
+      <div class="col-lg-5 col-md-12 block" *ngFor="let forum of forumService.categories">
+        <div class="forum forum-1">
+          <!--header-->
+          <div class="head">
+            <div class="bg">
+              <img src="assets/images/comminuty.jpg" class="img-full" />
+            </div>
+            <div class="title">
+              <h2>
+                <span>{{forum.title}}</span>
+              </h2>
+            </div>
+          </div>
+          <!--Body-->
+          <div class="body">
+            <ul class="status">
+              <li>
+                <span>{{forum.total_posts}}</span>Post</li>
+              <li>
+                <span>{{forum.total_comments}}</span>Comments</li>
+              <li>
+                <span>{{forum.total_likes}}</span>Likes</li>
+            </ul>
+            <div class="links">
+              <div class="members">
+                <ul class="list">
+                  <!--  *ngFor="let memeber of forum.members" -->
+                  <li>
+                    <img src="assets/images/avtar.png" />
+                  </li>
+
+                </ul>
+              </div>
+              <div class="openlink">
+                <a (click)="open(forum)" class="btn opencourse">Open Forum</a>
+              </div>
+            </div>
+          </div>
+          <!-- End Body-->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="col-lg-12 col-md-12 mobile-version">
+  <div class="content">
+    <div class="inner-ctn">
+
+      <div class="swipe-box" *ngFor="let forum of forumService.categories; let i=index" (swipeleft)="swipe(i, $event.type)" (swiperight)="swipe(i, $event.type)"
+        [ngClass]="{'visible':forum.visible,'hidden':!forum.visible && i !==currentIdx+1  &&  i !==currentIdx-1,'isNext':i ===currentIdx+1,'isPrev':i===currentIdx-1}">
+
+        <div class="forum forum-1">
+          <!--header-->
+          <div class="head">
+            <div class="bg">
+              <img src="assets/images/comminuty.jpg" class="img-full" />
+
+            </div>
+            <div class="title">
+              <h2>
+                <span>{{forum.title}}</span>
+
+              </h2>
+            </div>
+          </div>
+          <!--Body-->
+          <div class="body">
+            <div class="members">
+              <ul class="list">
+                <li *ngFor="let memeber of forum.members">
+                  <img src="assets/images/avtar.png" />
+                </li>
+
+              </ul>
+            </div>
+            <ul class="status">
+              <li>
+                <span>{{forum.total_posts}}</span>Post</li>
+              <li>
+                <span>{{forum.total_comments}}</span>Comments</li>
+              <li>
+                <span>{{forum.total_likes}}</span>Likes</li>
+            </ul>
+            <div class="links">
+
+              <div class="openlink">
+                <a (click)="open(forum)" class="btn opencourse">Open Forum</a>
+              </div>
+            </div>
+          </div>
+          <!-- End Body-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

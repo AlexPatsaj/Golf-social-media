@@ -1,0 +1,37 @@
+<div class="chat-content desktop-version">
+    <div class="chat-body-wrapper">
+        <div class="chat-contacts-wrapper">
+            <app-chat-contacts></app-chat-contacts>
+        </div>
+        <div class="chat-panel-wrapper  d-md-block">
+            <app-chat-message [openedChat]="openedChat" [messages]="messages"></app-chat-message>
+        </div>
+    </div>
+</div>
+<div class="chat-content mobile-version">
+    <div *ngIf="openedChat" class="back">
+        <span (click)=back() class="back-icon">
+      <i class="fa fa-angle-left"></i>
+    </span>
+        <span>
+      <span class=" avatar avatar-online">
+        <img alt="avatar" [src]="'/assets/images/admin/default.png'">
+        <span class="online">
+          &nbsp;
+        </span>
+        </span>
+        <span *ngIf="openedChat">
+          <!-- {{(openedChat.sender.id===currentUser.id ? openedChat.receiver.first_name : openedChat.sender.first_name )}} {{(openedChat.sender.id===currentUser.id ? openedChat.receiver.last_name : openedChat.sender.last_name )}} -->
+            {{openedChat.name}}
+        </span>
+        </span>
+    </div>
+    <div class="chat-body-wrapper">
+        <div class="chat-contacts-wrapper" *ngIf="!openedChat">
+            <app-chat-contacts></app-chat-contacts>
+        </div>
+        <div class="chat-panel-wrapper d-md-block" *ngIf="openedChat">
+            <app-chat-message [openedChat]="openedChat" [messages]="messages"></app-chat-message>
+        </div>
+    </div>
+</div>

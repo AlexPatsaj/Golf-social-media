@@ -1,0 +1,62 @@
+<div class="custom_skills_container">
+  <div class="container">
+    <div class="skills_inner_menu">
+      <div class="row">
+        <div class="col-sm-12  col-xl-3 col-lg-3 col-md-3">
+          <div class="custom_skill_heading">
+            <h3>FILTER SKILLS + DRILLS BY:</h3>
+          </div>
+        </div>
+        <div class="col-sm-12  col-xl-9 col-lg-9 col-md-9">
+          <div class="custom_skill_icons" id="style-1">
+            <ul class="mobile-list">
+              <li  routerLink="/course/skills/{{item.skill_id}}"  routerLinkActive="active"   class="border-hover" [ngClass]="{'active': selectedItem && selectedItem.skill_id===item.skill_id}" *ngFor="let item of skills;let i=index;">
+                <div  (click)="toSkillsVideos(item)">
+                  <img src="{{item.skill_image}}">
+                  <span>{{item.skill_name}}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12  col-xl-4 col-lg-4 col-md-4" *ngFor="let item of skillsVideos">
+        <div class="single_video_details" >
+          <div class="video_header">
+            <div class="video_title">
+              <h3>{{item.video_title}}</h3>
+            </div>
+            <div class="video_spacial_icon">
+              <p>
+                <i class="fa fa-heart"></i>
+                <span>favorite</span>
+              </p>
+              <p>
+                <i class="fa fa-eye"></i>
+                <span>unviewed</span>
+              </p>
+
+            </div>
+          </div>
+          <div class="resp-container">
+            <!-- <img src="{{item.video_image_path}}"> -->
+            <iframe   [src]="item.trustedUrl" frameborder="0" allowfullscreen class="resp-iframe"></iframe>
+
+
+          </div>
+          <div class="video-remaining-info">
+            <h3>{{item.video_title}}</h3>
+            <p>
+              {{item.video_desc}}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

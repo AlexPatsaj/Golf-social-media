@@ -1,0 +1,106 @@
+.dash-container{
+  background-color: #e4e4e4;
+  height: 100%;
+}
+.dash-cont-friend-wrapper{
+  padding: 50px 30px 20px 30px;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: webkit-flex;
+  flex-wrap: wrap;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  width: 100%;
+  background-color: #e4e4e4;
+  justify-content: space-around;
+}
+
+.dash-cont-friend-card-wrapper{
+  width: 220px;
+  height: 260px;;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 4px 4px 7px grey;
+  border-radius: 3px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.card-handle{
+  color: #0691ff;
+  position: absolute;
+  right: 11px;
+  top: 5px;
+}
+.card-photo{
+  flex:5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-wrapper{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: lightcoral;
+  margin-top: 15px;
+}
+.image-content{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+.card-name{
+  flex:2;
+  background-color: white;
+}
+.card-name-up{
+  font-size: 16px;
+  font-weight: bold;
+}
+.card-name-down{
+  font-size: 13px;
+}
+.card-send-message{
+  flex:2;
+  background-color: #0691ff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: 0.3s;
+  :hover{
+    background-color: #046ec5;
+    transition: 0.3s;
+  }
+}
+.send-message-letter{
+  font-weight: bold;
+}
+.send-message-prefix{
+  font-size: 23px;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 767px){
+  .dash-cont-friend-card-wrapper{
+    width: 350px;
+    height: 400px;
+    transition: 0.5s
+  }
+  .image-wrapper{
+    width: 130px;
+    height: 130px;
+  }
+  .image-content{
+    width: 130px;
+    height: 130px;
+  }
+}

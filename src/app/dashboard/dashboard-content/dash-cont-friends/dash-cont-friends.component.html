@@ -1,0 +1,23 @@
+<div class="dash-container">
+  <div class="dash-cont-friend-wrapper">
+    <div class="dash-cont-friend-card-wrapper" 
+    *ngFor="let friend of friends">
+      <div class="card-handle"><i class="fas fa-ellipsis-h"></i></div>
+      <div class="card-photo">
+        <div class="image-wrapper">
+          <img src={{friend.friendsAbatarUrl}} alt="" class="image-content">
+        </div>
+      </div>
+      <div class="card-name">
+        <div class="card-name-up">{{friend.friendsName}}</div>
+        <div class="card-name-down">{{friend.friendsLocation}}</div>
+      </div>
+      <div class="card-send-message">
+        <i class="far fa-comments send-message-prefix"></i>
+        <div class="send-message-letter">
+          MESSAGE
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

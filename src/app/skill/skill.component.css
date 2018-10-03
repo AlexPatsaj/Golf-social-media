@@ -1,0 +1,146 @@
+
+.custom_skill_heading {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.custom_skill_heading h3 {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    padding-top: 20px;
+}
+.video-remaining-info h3 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.single_video_details {
+    width: 100%;
+    display: inline-block;
+    border: 2px solid #c1c1c178;
+    border-radius: 5px;
+    margin-top: 40px;
+}
+.video_header {
+    width: 100%;
+    display: inline-block;
+    background: white;
+    font-size: 0;
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+.custom_skill_icons {
+    margin: 0;
+    padding: 10px 0px;
+    overflow-x: scroll;
+    width: 85%;
+    display: inline-flex;
+}
+.custom_skill_icons ul {
+    padding: 0;
+    margin: 0;
+    display: contents;
+    width: 100%;
+}
+.custom_skill_icons ul li.active {
+    border-bottom: 3px solid #0691ff;
+
+}
+.custom_skill_icons ul li:focus {
+    outline:none !important;
+}
+.custom_skill_icons ul li.border-hover:hover{
+    border-bottom: 3px solid #0691ff;
+
+}
+.custom_skill_icons ul li {
+    display: inline-block;
+    text-align: center;
+    margin: 0px 15px;
+    border-bottom: 3px solid transparent;
+    cursor: -webkit-grab; cursor: grab;
+}
+.custom_skill_icons a:hover {
+    text-decoration: none;
+}
+
+.video_container img {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.resp-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.resp-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+
+.custom_skill_icons li img {
+    width: 100%;
+    max-width: 23px;
+    height: 25px;
+    width: auto;
+}
+.skills_inner_menu {
+    width: 100%;
+    display: inline-block;
+    margin: 25px 0px;
+}
+.custom_skill_icons ul li span {
+    display: block;
+    color: black;
+    font-weight: bold;
+    font-size: 11px;
+    margin: 7px 0px;
+}
+
+
+@media (max-width: 576px){
+    .mobile-list{
+        display: flex !important;
+        overflow-x: scroll;
+        margin-top: 20px !important;
+    }
+}
+
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#style-1::-webkit-scrollbar
+{
+	height: 5px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	background-color: #0691ff;
+	border-radius: 0px;
+	background-image: -webkit-linear-gradient(90deg,
+	                                          #0691ff 25%,
+											  #0691ff 25%,
+											  #0691ff 50%,
+											  #0691ff 50%,
+											  #0691ff 75%,
+											  #0691ff 75%,
+											  transparent)
+}

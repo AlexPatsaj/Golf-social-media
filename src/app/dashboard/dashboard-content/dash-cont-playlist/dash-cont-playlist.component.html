@@ -1,0 +1,50 @@
+<div class="custom_play_list_details">
+  <div class="row">
+      <div class="custom_top_padding col-xs-12 col-sm-6 col-md-6 col-lg-6"
+      *ngFor="let playlist of playlists">
+          <div class="custom_playlist_info">
+              <div class="name_container">
+                  <h3>{{playlist.playListName}}</h3>
+                  <span class="details" (click)="details()">...</span>
+              </div>
+              <div class="playlist_info"
+              *ngFor="let playlistdetail of playlist.playListDetails"
+              (click)="click_playlistdetail()">
+                  <div class="customer_avatar">
+                      <img class="active" src={{playlistdetail.customerAvatarUrl}}>
+                  </div>
+                  <div class="customer_name">
+                    {{playlistdetail.customerName}}
+                  </div>
+                  <div class="playlist_limit">
+                      {{playlistdetail.playTime}} MINS
+                  </div>
+                  <div class="playlist_close">
+                      <img src="assets/images/closeicon.png"
+                      (click)="close()">
+                  </div>
+              </div>
+              <div class="audo_controls">
+                  <audio controls >
+                      <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+                      <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                  </audio>
+              </div>
+          </div>
+      </div>
+      <div class="custom_top_padding col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="custom_upload custom_playlist_info">
+              <div class="name_container">
+                  <h3>add new playlist</h3>
+                  <span>...</span>
+              </div>
+              <div class="playlist_info">
+               <div class="custom_add_icon">
+                   <img src="assets/images/add.png">
+               </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+

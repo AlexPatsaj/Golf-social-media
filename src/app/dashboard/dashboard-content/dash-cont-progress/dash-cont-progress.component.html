@@ -1,0 +1,77 @@
+<div class="app-dash-cont-progress">
+  <div class="progress-panel-wrapper"
+  *ngFor="let course of courselist">
+    <div class="progress-main-panel-wrapper">
+      <div class="main-course-pic-wrapper" 
+      *ngIf = "course.coverUrl"
+      [style.background-image]="'url('+ course.coverUrl +')'">
+        <div class="course-chapter-badge">{{course.chapter}}</div>
+      </div>
+      <div class="main-course-content-wrapper">
+        <div class="content-wrapper">
+          <div class="chapter-wrapper">
+            {{course.chapterStr}}
+          </div>
+          <div class="title-wrapper">
+            {{course.chapterTitle}}
+          </div>
+          <div class="detail-wrapper">
+            {{course.chapterDetail}}
+          </div>
+        </div>
+      </div>
+      <div class="main-course-progressbar-wrapper">
+        <div class="progressbar-container">
+          <div class="progressbar">
+            <div class="bar">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" [attr.aria-valuenow]="course.progress"
+                  aria-valuemin="0" aria-valuemax="100" [style.width]="course.progress + '%'">
+                  </div>
+                </div>
+            </div>
+            <div class="letter">
+              {{course.progress}}%
+            </div>
+          </div>
+          <div class="buttons">
+            <div class="button">
+              Open Course
+            </div>
+            <div class="button">
+              Close Module
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-include-panel-wrapper"
+    *ngFor="let module of course.modules">
+      <div class="module-name-wrapper">
+        <div class="module-name">
+          {{module.module}}
+        </div>
+          <div class="module-content">
+            {{module.name}}
+          </div>
+      </div>
+      <div class="module-progress-wrapper">
+          <div class="module-wrapper">
+              <div class="progressbar">
+                <div class="bar">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" role="progressbar" [attr.aria-valuenow]="module.progress"
+                      aria-valuemin="0" aria-valuemax="100" [style.width]="module.progress + '%'">
+                      </div>
+                    </div>
+                </div>
+                <div class="letter">
+                  {{module.progress}}%
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

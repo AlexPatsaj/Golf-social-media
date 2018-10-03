@@ -1,0 +1,8 @@
+<div class="custom_active_menu">
+  <ul>
+
+      <li><a (click)="close()"  [routerLink]="['/course/forum']" class="active">All Forums</a></li>
+      <li *ngFor="let item of forumService.categories"><a (click)="open(item)"  [routerLink]="['/course/forum']" >{{item.title}}</a></li>
+      
+  </ul>
+</div>

@@ -1,0 +1,160 @@
+<div class="chat-panel">
+    <div class="chat-panel-topbar" *ngIf="openedChat">
+            <!-- <div class="chat-panel-topbar" [ngClass]="{'scrollbar-topbar': listUsersInConversation().length>5}" id="style-1" *ngIf="openedChat"> -->
+
+        <ul class="avatar-list">
+            <li>
+                <span class=" plus-sign" (click)="open(content)">
+                    <i class="fa fa-plus plus-icon"></i>
+                </span>
+
+            </li>
+            <li *ngFor="let user of listUsersInConversation()">
+
+                <span class=" avatar avatar-online">
+                    <img alt="avatar" [src]="'/assets/images/user.png'">
+                </span>
+                <span *ngIf="openedChat">
+                    {{user.name}}
+                </span>
+            </li>
+
+            <!-- <li>
+                <span class=" avatar avatar-online">
+                    <img alt="avatar" src="/assets/learning/images/portrait/small/avatar-s-19.png">
+                </span>
+            </li>
+            <li>
+                <span class=" avatar avatar-online">
+                    <img alt="avatar" src="/assets/learning/images/portrait/small/avatar-s-19.png">
+                </span>
+            </li>             -->
+        </ul>
+        <!-- <span class="chat-panel-topbar-name">
+            {{selectedContact?.name}}
+        </span> -->
+    </div>
+    <div class="chat-message-list" #chatMessages *ngIf="openedChat">
+        <div class="chat-message-list-item" *ngFor="let message of messageService.messages">
+            <div class="chat-message-list-item-info" *ngIf="message.userId" [class.row-reverse]="message.userId !== currentUser.id">
+                <span class="chat-message-list-item-info-img avatar avatar-online">
+                    <!-- <img *ngIf="message.sender != currentUser.id" alt="" [src]="selectedContact?.image ? avatarUrl + selectedContact?.image : '/assets/learning/images/portrait/small/avatar-s-19.png'">                     -->
+                    <img *ngIf="message.userId != currentUser.id" alt="" [src]="'/assets/images/user.png'">
+                    <!-- <img *ngIf="message.sender.id == currentUser.id" alt="" [src]="currentUser?.image ? avatarUrl + currentUser?.image : '/assets/learning/images/portrait/small/avatar-s-19.png'"> -->
+                    <img *ngIf="message.userId == currentUser.id" alt="" [src]="'/assets/images/user.png'">
+                    <span class="online">
+                        &nbsp;
+                    </span>
+                    <i></i>
+                </span>
+                <div class="chat-message-list-item-info-wrapper d-flex flex-column">
+                    <div class="chat-message-list-item-info-name">
+                        <span>{{message.name}}</span>
+                    </div>
+                    <div *ngIf="message.message" class="chat-message-list-item-info-text">{{message.message}}</div>
+                    <!-- <div *ngIf="message.type == 1" class="chat-message-list-item-info-text">
+                        <img [src]="message.message">
+                    </div> -->
+                    <!-- <div class="chat-message-list-item-time-wrapper">
+                        <span class="time-left" *ngIf="message.sender.id == currentUser.id">
+                            {{message.created_at | date: 'EEEE, LLLL dd, yyyy HH:mm'}}
+                        </span>
+                        <span class="time-right" *ngIf="message.sender.id != currentUser.id">
+                            {{message.created_at | date: 'EEEE, LLLL dd, yyyy HH:mm'}}
+                        </span>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chat-panel-footer" *ngIf="openedChat">
+        <div class="message-text-wrapper">
+            <input type="text" name="message" placeholder="Type Message ..." class="message-text" (keydown.enter)="onEnter($event)" [(ngModel)]="draftMessage"
+            />
+            <input type="file" name="file" accept="image/*" #uploadAnyFile (change)="handleInputChange($event)" style="display:none">
+            <span class="send-photo" (click)="triggerUploadFile()">
+                <i class="fas fa-paperclip"></i>
+            </span>
+        </div>
+        <button class="send-message" (click)="onEnter($event)">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+<div class="chat-right-sidebar-wrapper">
+    <div class="promotions-wrapper">
+        <ul class="promotions">
+            <li [ngClass]="{'active': selectedPromo==='All'}" (click)="selectPromo('All')">All</li>
+            <li [ngClass]="{'active': selectedPromo==='Clothing'}" (click)="selectPromo('Clothing')">Clothing</li>
+            <li [ngClass]="{'active': selectedPromo==='Rounds'}" (click)="selectPromo('Rounds')">Rounds</li>
+            <li [ngClass]="{'active': selectedPromo==='Clubs'}" (click)="selectPromo('Clubs')">Clubs</li>
+        </ul>
+    </div>
+    <div class="pxg-wrapper">
+        <div class="pxg-content-item">
+            <span class="pxg-content-item-img avatar">
+                <img alt="avatar" src="/assets/learning/images/portrait/small/avatar-s-19.png">
+            </span>
+            <div class="pxg-content-item-content">
+                <span class="pxg-content-item-content-title">
+                    PXG
+                </span>
+                <div class="pxg-content-item-content-text">
+                    New bags available at
+                    <a>www.pxg.com/golf-bags</a>. If you have any questions let your local fitter contact them directly by phone
+                    or email.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add People to Conversation</h4>
+        <button type="button" class="close close-button" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="chat-contacts-list">
+                    <div *ngFor="let chat of listUsers">
+                        <div class="chat-contacts-list-item" (click)="addUserToConversation(chat);d('Cross click')"  >
+                            <div class="contacts-list-name">
+                                <span class="contact-name">
+                                    {{chat.name}}
+                                </span>
+                            </div>
+                            <div class="contacts-list-info">
+                                <div class="contacts-list-info-img">
+                                    <span class="avatar avatar-online">
+                                        <img alt="avatar" [src]="'/assets/images/admin/default.png'">
+                                        <i></i>
+                                    </span>
+                                    <span class="online">
+                                        &nbsp;
+                                    </span>
+                                </div>
+                                <div class="contacts-list-info-content">
+                                    {{chat.name}}
+                                </div>
+                            </div>
+                            <div class="constacts-list-footer">
+                                <span class="status">
+                                    {{1> 0 ? 'Undread':'Read'}}
+                                </span>
+                                <span class="time"> 
+                                </span>
+                            </div>
+                        </div>
+                
+                        
+                    </div>
+                
+                </div>
+    </div>
+
+</ng-template>
